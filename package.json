@@ -1,0 +1,16 @@
+{
+  "name": "github-diegous1-phoenix-vibe-coding",
+  "title": "Phoenix Vibe Coding",
+  "description": "🎯 AI-powered vibe coding extension for Phoenix Code - like Cursor or GitHub Copilot with LLM integration",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Diego <https://github.com/diegous1>",
+  "homepage": "https://github.com/diegous1/phoenix-vibe-coding",
+  "engines": {
+    "phoenix": ">=3.0.0"
+  },
+  "categories": ["ai", "productivity", "autocomplete"],
+  "keywords": ["ai", "llm", "copilot", "cursor", "autocomplete", "vibe-coding", "openai", "anthropic"],
+  "files": ["main.js", "llm/", "ui/", "README.md"],
+  "i18n": ["en", "pt-br"]
+}
