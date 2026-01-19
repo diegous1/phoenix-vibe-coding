@@ -15,6 +15,7 @@ define(function (require, exports, module) {
 
     // Extension modules (to be created)
     // const LLMClient = require("llm/client");
+        const ContextManager = require("context/manager");
     // const UIPanel = require("ui/panel");
 
     // Constants
@@ -61,6 +62,14 @@ define(function (require, exports, module) {
         // UIPanel.show(context);
     }
 
+        
+        // Add multi-file context
+        const fileContext = ContextManager.buildContext();
+        if (fileContext) {
+            context.additionalContext = fileContext;
+            const stats = ContextManager.getStats();
+            console.log(`Context includes ${stats.fileCount} files (${stats.estimatedTokens} tokens)`);
+        }
     /**
      * Code completion command
      */
@@ -100,6 +109,19 @@ define(function (require, exports, module) {
         CommandManager.register("Ask AI", COMMAND_ID_ASK_AI, handleAskAI);
         CommandManager.register("AI Complete", COMMAND_ID_COMPLETE, handleComplete);
         CommandManager.register("AI Refactor", COMMAND_ID_REFACTOR, handleRefactor);
+                CommandManager.register("Add File to Context", "phoenixVibeCoding.addToContext", async () => {
+            const result = await ContextManager.addCurrentFile();
+            if (result.success) {
+                const stats = ContextManager.getStats();
+                console.log(`File added to context. Total: ${stats.fileCount} files, ${stats.estimatedTokens} tokens`);
+            } else {
+                console.error(result.error);
+            }
+        });
+        CommandManager.register("Clear Context", "phoenixVibeCoding.clearContext", () => {
+            ContextManager.clearAll();
+            console.log("Context cleared");
+        });
 
         // Add menu items
         const menu = Menus.getMenu(Menus.AppMenuBar.EDIT_MENU);
